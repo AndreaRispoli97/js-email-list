@@ -1,15 +1,25 @@
 console.log('Andrea');
 
 
+const endpoint = 'https://flynn.boolean.careers/exercises/api/random/mail';
 const emailList = document.getElementById('email-list');
 
-axios.get('https://flynn.boolean.careers/exercises/api/random/mail')
-.then((response) => {
-    const email = response.data.response;
-    console.log(email);
+let emails = [];
 
-    emailList.innerHTML += `<div class = col> ${email.element}</div>`;
-})
-.catch((error) => {
-    console.error('Errore');
-});
+for (let i = 0; i < 10; i++) {
+    axios.get(endpoint)
+        .then((response) => {
+            let email = response.data.response;
+            console.log(email);
+
+            emails += `<li class = "col"> ${email}</li>`;
+
+            emailList.innerHTML = emails;
+
+        })
+        .catch((error) => {
+            console.error('Errore');
+        });
+
+}
+
